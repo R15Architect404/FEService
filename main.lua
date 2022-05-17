@@ -49,7 +49,7 @@ end
 function FE:Chat(Msg)
     local Msg = tostring(Msg)
     if not Msg then return end
-    Services.Players:Chat(Msg) --such fe hax
+    Services.Players:Chat(Msg) --such fe haxx
 end
 
 function FE:GrabTools()
