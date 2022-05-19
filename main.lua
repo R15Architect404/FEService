@@ -49,7 +49,7 @@ end
 function FE:Chat(Msg)
     local Msg = tostring(Msg)
     if not Msg then return end
-    Services.Players:Chat(Msg) --such fe haxx
+    Services.Players:Chat(Msg) --such fe hax
 end
 
 function FE:GrabTools()
@@ -60,12 +60,26 @@ function FE:GrabTools()
     end
 end
 
+local claimedPart = {}
 function FE:ClaimPart(Part)
-    
+    local x = Instance.new("BindableEvent")
+	for _, v in pairs({Services.RunService.RenderStepped, Services.RunService.Heartbeat, Services.RunService.Stepped}) do
+		v.Connect(v, function()
+			return x.Fire(x, tick())
+		end)
+	end
+
+    table.insert(claimedPart, x.Event:Connect(function()
+        if Part and isnetworkowner and isnetworkowner(Part) then
+            Part.Velocity = Vector3.new(14.465,14.465,14.465)
+        elseif Part then
+            Part.Velocity = Vector3.new(14.465,14.465,14.465)
+        end
+    end))
 end
 
 function FE:UnclaimPart(Part)
-
+    
 end
 
 function FE:SetHumanoidAnimationSpeed(Speed)
