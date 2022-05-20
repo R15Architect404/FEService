@@ -31,9 +31,10 @@ end
 
 
 local FE = {}
+local LocalPlayer = Services.Players.LocalPlayer
 
 function FE:FullNetwork() --Immediately makes player have full physics capability
-    local plr = Services.Players.LocalPlayer
+    local plr = LocalPlayer
     setscriptable(plr, "SimulationRadius", true)
 	setscriptable(plr, "MaximumSimulationRadius", true)
 	setscriptable(plr, "MaxSimulationRadius", true)
@@ -52,10 +53,16 @@ function FE:Chat(Msg)
     Services.Players:Chat(Msg) --such fe hax
 end
 
-function FE:GrabTools()
+function FE:GrabTools(num) -- Optional grab limit
+    local num = tonumber(num)
+    local st = 0
     for i,v in next, Services.Workspace:GetChildren() do
         if v:IsA("BackpackItem") then
             v:EquipTool()
+            if num then
+                st = st + 1
+                if st >= num then break end 
+            end
         end
     end
 end
@@ -82,8 +89,26 @@ function FE:UnclaimPart(Part)
     
 end
 
+local functionWorker = {}
 function FE:SetHumanoidAnimationSpeed(Speed)
-
+    assert(tonumber(Speed), "Pass me a number bitch")
+    if Speed == false then -- FE:SetHumanoidAnimationSpeed(false) to turn off
+        for i,v in next, functionWorker do
+            v:Disconnect()
+        end
+        return
+    else
+        for i,v in next, functionWorker do
+            v:Disconnect()
+        end
+    end
+    local Speed = tonumber(Speed)
+    table.insert(functionWorker, Services.RunService.Stepped:Connect(function()
+        for i,v in next, LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks() do
+            v:AdjustSpeed(Speed)
+        end
+    end))
 end
+
 
 return FE
