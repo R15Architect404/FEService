@@ -91,7 +91,6 @@ end
 
 local functionWorker = {}
 function FE:SetHumanoidAnimationSpeed(Speed)
-    assert(tonumber(Speed), "Pass me a number bitch")
     if Speed == false then -- FE:SetHumanoidAnimationSpeed(false) to turn off
         for i,v in next, functionWorker do
             v:Disconnect()
@@ -102,6 +101,7 @@ function FE:SetHumanoidAnimationSpeed(Speed)
             v:Disconnect()
         end
     end
+    assert(tonumber(Speed), "Pass me a number")
     local Speed = tonumber(Speed)
     table.insert(functionWorker, Services.RunService.Stepped:Connect(function()
         for i,v in next, LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks() do
