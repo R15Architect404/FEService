@@ -29,9 +29,9 @@ local Create = function(Instance, Parent)
     end
 end
 
-
 local FE = {}
 local LocalPlayer = Services.Players.LocalPlayer
+
 
 function FE:FullNetwork() --Immediately makes player have full physics capability
     local plr = LocalPlayer
@@ -110,5 +110,28 @@ function FE:SetHumanoidAnimationSpeed(Speed)
     end))
 end
 
+function FE:ReplicateJump(Hum) 
+    if not Hum or not Hum:IsA("Humanoid") then return end
+    sethiddenproperty(Hum,"JumpReplicate",true)
+    sethiddenproperty(Hum,"Jump",true)
+end
+
+function FE:ReleaseCharacter(num) 
+    assert(tonumber(num), "Pass me a number")
+    local num = tonumber(num)
+    local oldh = workspace.FallenPartsDestroyHeight
+    setsimulationradius(0,0)
+    sethiddenproperty(LocalPlayer, "SimulationRadius", 0)
+	sethiddenproperty(LocalPlayer, "MaximumSimulationRadius", 0)
+	sethiddenproperty(LocalPlayer, "MaxSimulationRadius", 0)
+    workspace.FallenPartsDestroyHeight = 9e8
+    task.delay(num, function() 
+        setsimulationradius(1000,1000)
+        sethiddenproperty(LocalPlayer, "MaximumSimulationRadius", 1000)
+	    sethiddenproperty(LocalPlayer, "MaxSimulationRadius", 1000)
+        sethiddenproperty(LocalPlayer, "SimulationRadius", 1000)
+        workspace.FallenPartsDestroyHeight = oldh
+    end)
+end
 
 return FE
