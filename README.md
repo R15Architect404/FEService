@@ -1,6 +1,6 @@
 # FEService
 
-A simple service/module for all your FE (real) needs (literally)
+A open source simple service/module for all your FE (real) needs (literally)
 
 will be adding more FE (real) stuff if i'm not busy 
 
