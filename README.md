@@ -9,6 +9,8 @@ everything in this module is FE (real) and replicates.
 Works in Synapse X, KRNL, ScriptWare
 
 
+fork or star if you like this stuff (lmfao)
+
 
 # DOCS
 
