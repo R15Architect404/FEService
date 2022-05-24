@@ -31,6 +31,15 @@ end
 
 local FE = {}
 local LocalPlayer = Services.Players.LocalPlayer
+local H = Instance.new("Humanoid")
+local CState = H.ChangeState
+
+function getChar(p)
+   return p and p.Character or LocalPlayer.Character 
+end
+function getHum(p)
+    return p and p.Character or LocalPlayer.Character 
+ end
 
 
 function FE:FullNetwork() --Immediately makes player have full physics capability
@@ -132,6 +141,32 @@ function FE:ReleaseCharacter(num)
         sethiddenproperty(LocalPlayer, "SimulationRadius", 1000)
         workspace.FallenPartsDestroyHeight = oldh
     end)
+end
+
+local yes = {}
+local AllowCState = true
+function FE:ChangeState(State)
+    local a,b = pcall(CState, H, State)
+    if not a then return error("Pass me a valid state") end -- No I wont let you pass this function an invalid state >:(
+    table.insert(yes, Services.Stepped:Connect(function()
+        if AllowCState and getHum() then
+            CState(getHum(), State)
+        end
+    end))
+end
+
+function FE:UnChangeState(num)
+    local num = tonumber(num)
+    if not num then
+        for i,v in next, yes do
+            v:Disconnect()
+        end
+    else
+        AllowCState = false
+        task.delay(num, function() 
+            AllowCState = true
+        end)
+    end
 end
 
 return FE
