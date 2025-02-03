@@ -1,6 +1,6 @@
 --usage
 
-local FEService = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/WhyGitHubb/FEService/main/main.lua"))()
+local FEService = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/R15Architect404/FEService/refs/heads/main/main.lua"))()
 
 
 FEService:FullNetwork()  
