@@ -52,7 +52,7 @@ function FE:FullNetwork() --Immediately makes player have full physics capabilit
 	physicSettings.PhysicsEnvironmentalThrottle = Enum['EnviromentalPhysicsThrottle'].Disabled
     plr.MaximumSimulationRadius = 1000
     plr.ReplicationFocus = workspace or Services.Workspace
-	plr.MaxSimulationRadius = 1000  -- no point in looping
+	  -- no point in looping
 	plr.SimulationRadius = 1000
 end
 
